@@ -1,0 +1,70 @@
+.homePage{
+    background-color: rgb(131, 251, 251);
+    height: 700px;
+}
+
+.income{
+    width: 330px;
+    height: 200px;
+    /*border-collapse: collapse;*/
+    border: 1px solid yellow;
+    background-color: aqua;
+    /*table-layout: fixed;*/
+    /*font-size: 100px;*/
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.income div{
+    margin-bottom: 15px;
+}
+
+.expense{
+    width: 330px;
+    height: 250px;
+    /*border-collapse: collapse;*/
+    border: 1px solid red;
+    background-color: aqua;
+    /*table-layout: fixed;*/
+    /*font-size: 100px;*/
+    text-align: center;
+    margin-bottom: 50px;
+}
+.expense div{
+    margin-bottom: 25px;
+}
+
+h1, h2{
+    font-size: 30px;
+    color: blue;
+    font-weight: bold;
+}
+
+.totals{
+    display: flex;
+    height: 100px;
+    width: 600px;
+    /*background-color: aqua;*/
+    margin-top: -500px;
+    margin-left: 450px;
+    justify-content: flex-end;
+}
+
+.total1, .total2, .total3{
+    height: 100px;
+    width: 600px;
+    font-weight: bold;
+    text-align: center;
+    background-color: aqua;
+    border: 1px solid blue;
+    border-radius: 30%;
+}
+
+
+.financeOutput{
+    width: 700px;
+    height: 50px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin: auto;
+}

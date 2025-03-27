@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="eg">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Finance Tracker</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="styles/style.css">
+        
+
+        
+    </head>
+
+
+    <body>
+        <div class="homePage">
+            <div style="color: brown; font-size: 40px; font-weight: bold; text-align: center;">Finance Tracker</div>
+            
+            <div class="income">
+                <h1>Add Income</h1>
+                <div>Income Title:
+                    <input type="text" id="incomeTitle" name="incomeTitle"><br>
+                    
+                </div>
+                <div>Income Value:
+                    <input type="number" id="incomeValue" name="incomeValue"><br>
+                </div>
+    
+                <!--<input type="submit" id="submit1" value="Submit">-->
+                <button onclick="holdsIncome()">Submit</button>
+            </div>
+    
+            
+            <div class="expense">
+                <h2>Add Expense</h2>
+                <div>Expense Title:
+                    <input type="text" id="expenseTitle" name="expenseTitle"><br>
+                </div>
+                
+                <div>Expense Amount:
+                    <input type="number" id="expenseValue" name="expenseValue"><br>
+                </div>
+                <!--<input type="submit" id="submit2" value="Submit">-->
+
+                <button onclick="holdsExpense()">Submit</button>
+            </div>
+    
+            <input type="submit" id="reset" value="Reset all Values">
+    
+            <div class="totals">
+                <div class="total1">Total Income
+                    <p class="output" id="displayIncTotal"><p>
+                </div>
+
+                <div class="total2">Total Expense
+                    <input type="number" id="bugetRemaining" name="bugetRemaining"><br>
+                </div>
+                <div class="total3">
+                    Budget Remaining
+                    <!--<input type="number" id="bugetRemaining" name="bugetRemaining"><br>-->
+                </div>
+            </div>
+            
+    
+    
+            <div style="color: blue; font-size: 20px; text-align: center; margin-top: 50px;">Expense History:</div>
+
+
+            <table class="financeOutput">
+                <tr>
+                    <th><span class="name">Expense Name</span></th>
+                    <th><span class="amount">Amount</span></th>
+                    <th><span class="action">Action</span></th>
+                    <!--<th><input type="submit" id="removing" value="Remove"></th>-->
+                </tr>
+            </table>
+            
+        </div>
+
+
+        <!-- your content goes here -->
+        <script src="scripts/index.js"></script>
+    </body>
+
+
+
+</html>
