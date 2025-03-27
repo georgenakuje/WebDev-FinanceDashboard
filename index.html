@@ -1,88 +1,133 @@
 <!DOCTYPE html>
 <html lang="eg">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Finance Tracker</title>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <link rel="stylesheet" href="styles/style.css">
-        
-
-        
-    </head>
+  <title>Finance Tracker</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
 
 
-    <body>
-        <div class="homePage">
-            <div style="color: brown; font-size: 40px; font-weight: bold; text-align: center;">Finance Tracker</div>
-            
-            <div class="income">
-                <h1>Add Income</h1>
-                <div>Income Title:
-                    <input type="text" id="incomeTitle" name="incomeTitle"><br>
-                    
-                </div>
-                <div>Income Value:
-                    <input type="number" id="incomeValue" name="incomeValue"><br>
-                </div>
-    
-                <!--<input type="submit" id="submit1" value="Submit">-->
-                <button onclick="holdsIncome()">Submit</button>
-            </div>
-    
-            
-            <div class="expense">
-                <h2>Add Expense</h2>
-                <div>Expense Title:
-                    <input type="text" id="expenseTitle" name="expenseTitle"><br>
-                </div>
-                
-                <div>Expense Amount:
-                    <input type="number" id="expenseValue" name="expenseValue"><br>
-                </div>
-                <!--<input type="submit" id="submit2" value="Submit">-->
+<body>
+  <div class="homePage">
+    <div style="color: brown; font-size: 40px; font-weight: bold; text-align: center;">Finance Tracker</div>
 
-                <button onclick="holdsExpense()">Submit</button>
-            </div>
-    
-            <input type="submit" id="reset" value="Reset all Values">
-    
-            <div class="totals">
-                <div class="total1">Total Income
-                    <p class="output" id="displayIncTotal"><p>
-                </div>
+    <div class="income">
+      <h1>Add Income</h1>
+      <div>Income Title:
+        <input type="text" id="incomeTitle" name="incomeTitle"><br>
 
-                <div class="total2">Total Expense
-                    <input type="number" id="bugetRemaining" name="bugetRemaining"><br>
-                </div>
-                <div class="total3">
-                    Budget Remaining
-                    <!--<input type="number" id="bugetRemaining" name="bugetRemaining"><br>-->
-                </div>
-            </div>
-            
-    
-    
-            <div style="color: blue; font-size: 20px; text-align: center; margin-top: 50px;">Expense History:</div>
+      </div>
+      <div>Income Value:
+        <input type="number" id="incomeValue" name="incomeValue"><br>
+      </div>
+
+      <!--<input type="submit" id="submit1" value="Submit">-->
+      <button onclick="holdsIncome()">Submit</button>
+    </div>
 
 
-            <table class="financeOutput">
-                <tr>
-                    <th><span class="name">Expense Name</span></th>
-                    <th><span class="amount">Amount</span></th>
-                    <th><span class="action">Action</span></th>
-                    <!--<th><input type="submit" id="removing" value="Remove"></th>-->
-                </tr>
-            </table>
-            
+    <div class="expense">
+      <h2>Add Expense</h2>
+      <div>Expense Title:
+        <input type="text" id="expenseTitle" name="expenseTitle"><br>
+      </div>
+
+      <div>Expense Amount:
+        <input type="number" id="expenseValue" name="expenseValue"><br>
+      </div>
+      <!--<input type="submit" id="submit2" value="Submit">-->
+
+      <button onclick="holdsExpense()">Submit</button>
+    </div>
+
+    <input type="submit" id="reset" value="Reset all Values">
+
+    <div class="totals">
+      <div class="total1">Total Income
+        <p class="output" id="displayIncTotal">
+        <p>
+      </div>
+
+      <div class="total2">Total Expense
+        <input type="number" id="bugetRemaining" name="bugetRemaining"><br>
+      </div>
+      <div class="total3">
+        Budget Remaining
+        <!--<input type="number" id="bugetRemaining" name="bugetRemaining"><br>-->
+      </div>
+    </div>
+
+
+
+    <div style="color: blue; font-size: 20px; text-align: center; margin-top: 50px;">Expense History:</div>
+
+
+    <table class="financeOutput">
+      <tr>
+        <th><span class="name">Expense Name</span></th>
+        <th><span class="amount">Amount</span></th>
+        <th><span class="action">Action</span></th>
+        <!--<th><input type="submit" id="removing" value="Remove"></th>-->
+      </tr>
+    </table>
+
+    <!-- Currency Converter -->
+    <div class="currency-wrapper">
+      <header>Currency Converter</header>
+      <form action="#">
+        <div class="amount">
+          <p>Enter Amount</p>
+          <input type="text" id="amount" value="1" />
         </div>
 
+        <div class="drop-list">
+          <div class="from">
+            <p>From</p>
+            <div class="select-box">
+              <img id="from-flag" src="https://flagsapi.com/CA/flat/64.png" alt="flag" />
+              <select id="from-currency" data-flag-id="from-flag">
+                <option value="CAD">CAD</option>
+                <option value="USD">USD</option>
+                <option value="GBP">GBP</option>
+              </select>
+            </div>
+          </div>
 
-        <!-- your content goes here -->
-        <script src="scripts/index.js"></script>
-    </body>
+          <div class="icon" id="swap">
+            <i class="fas fa-exchange-alt"></i>
+          </div>
+
+          <div class="to">
+            <p>To</p>
+            <div class="select-box">
+              <img id="to-flag" src="https://flagsapi.com/US/flat/64.png" alt="flag" />
+              <select id="to-currency" data-flag-id="to-flag">
+                <option value="USD">USD</option>
+                <option value="CAD">CAD</option>
+                <option value="GBP">GBP</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="exchange-rate" id="rate-output">
+          Exchange rate result
+        </div>
+        <button type="button" id="convertBtn">Exchange Rate</button>
+      </form>
+    </div>
+
+  </div>
+
+
+  <!-- your content goes here -->
+  <script src="scripts/index.js"></script>
+</body>
 
 
 

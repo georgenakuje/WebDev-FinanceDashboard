@@ -68,3 +68,107 @@ h1, h2{
     table-layout: fixed;
     margin: auto;
 }
+
+/* Currency Converter Wrapper */
+.currency-wrapper {
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    width: 300px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  .currency-wrapper header {
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+    color: rgb(0, 0, 255);
+  }
+  
+  /* Input and dropdown layout */
+  .currency-wrapper input {
+    width: 93%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    outline: none;
+  }
+  
+  .currency-wrapper .amount {
+    margin-bottom: 20px;
+  }
+  
+  .currency-wrapper .drop-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    gap: 10px;
+  }
+  
+  .currency-wrapper .from,
+  .currency-wrapper .to {
+    flex: 1;
+  }
+  
+  .currency-wrapper .select-box {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 6px;
+    background-color: #f9f9f9;
+  }
+  
+  .currency-wrapper select {
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    outline: none;
+  }
+  
+  .currency-wrapper img {
+    width: 25px;
+    height: 20px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  
+  .currency-wrapper .icon {
+    font-size: 18px;
+    color: #555;
+    padding-top: 28px;
+  }
+  
+  /* Output */
+  .currency-wrapper .exchange-rate {
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* Button */
+  .currency-wrapper button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: aqua;
+    color: rgb(0, 0, 0);
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .currency-wrapper button:hover {
+    background-color: #8ad3d3;
+  }
