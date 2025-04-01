@@ -8,6 +8,7 @@
     height: 200px;
     /*border-collapse: collapse;*/
     border: 1px solid yellow;
+    border-radius: 5%;
     background-color: aqua;
     /*table-layout: fixed;*/
     /*font-size: 100px;*/
@@ -24,6 +25,7 @@
     height: 250px;
     /*border-collapse: collapse;*/
     border: 1px solid red;
+    border-radius: 5%;
     background-color: aqua;
     /*table-layout: fixed;*/
     /*font-size: 100px;*/

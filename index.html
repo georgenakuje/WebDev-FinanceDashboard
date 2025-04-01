@@ -16,7 +16,8 @@
   <div class="homePage">
     <div style="color: brown; font-size: 40px; font-weight: bold; text-align: center;">Finance Tracker</div>
 
-    <div class="income">
+    <!--User inputs income information here-->
+    <div class="income"> 
       <h1>Add Income</h1>
       <div>Income Title:
         <input type="text" id="incomeTitle" name="incomeTitle"><br>
@@ -26,11 +27,10 @@
         <input type="number" id="incomeValue" name="incomeValue"><br>
       </div>
 
-      <!--<input type="submit" id="submit1" value="Submit">-->
       <button onclick="holdsIncome()">Submit</button>
     </div>
 
-
+    <!--User inputs expense information here-->
     <div class="expense">
       <h2>Add Expense</h2>
       <div>Expense Title:
@@ -40,26 +40,24 @@
       <div>Expense Amount:
         <input type="number" id="expenseValue" name="expenseValue"><br>
       </div>
-      <!--<input type="submit" id="submit2" value="Submit">-->
 
       <button onclick="holdsExpense()">Submit</button>
     </div>
 
-    <input type="submit" id="reset" value="Reset all Values">
-
+    <!--Total expense and income value, along with budget remaining gets displayed-->
     <div class="totals">
       <div class="total1">Total Income
-        <p class="output" id="displayIncTotal">
-        <p>
+        <input type="number" id="displayIncTotal" readonly="displayIncTotal">
       </div>
 
       <div class="total2">Total Expense
-        <input type="number" id="bugetRemaining" name="bugetRemaining"><br>
+        <input type="number" id="displayExpTotal" readonly="displayExpTotal">
       </div>
-      <div class="total3">
-        Budget Remaining
-        <!--<input type="number" id="bugetRemaining" name="bugetRemaining"><br>-->
+
+      <div class="total3">Budget Remaining
+        <input type="number" id="bugetRemaining" readonly="bugetRemaining">
       </div>
+
     </div>
 
 
@@ -72,7 +70,6 @@
         <th><span class="name">Expense Name</span></th>
         <th><span class="amount">Amount</span></th>
         <th><span class="action">Action</span></th>
-        <!--<th><input type="submit" id="removing" value="Remove"></th>-->
       </tr>
     </table>
 

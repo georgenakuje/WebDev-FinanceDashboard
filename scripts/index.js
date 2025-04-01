@@ -1,45 +1,50 @@
-$(document).ready(function() {
-    addition()    
-});
+var totalIncome = 0;
+var totalExpense = 0;
+var budgetValue = 0;
 
-let input1;
-let input2;
-let input3;
-let input4;
+function holdsIncome(){ /*collects the income value and the titles for where the user gained those income*/
+  let input1 = document.getElementById("incomeTitle").value;
+  let input2 = Number(document.querySelector("#incomeValue").value);
+  
+  addition(input2, "income");
+  budgetRemains(input2, "income");
 
-
-function holdsIncome(){
-    input1 = document.getElementById("incomeTitle").value
-    input2 = parseFloat(document.getElementById("incomeValue").value)
-    console.log("input2:", input2);
-    return input2;
+  document.getElementById("displayIncTotal").value = totalIncome; /*displays the income total to the website */
 }
 
-function holdsExpense(){
-    input3 = document.getElementById("expenseTitle").value
-    input4 = parseFloat(document.getElementById("expenseValue").value)
-    console.log("input4:", input4);
-    return input4;
+function holdsExpense(){ /*collects the expense value and the titles for where the user used those expenses*/
+  let input3 = document.getElementById("expenseTitle").value;
+  let input4 = Number(document.querySelector("#expenseValue").value);
+
+  addition(input4, "expense");
+  budgetRemains(input4, "expense");
+
+  document.getElementById("displayExpTotal").value = totalExpense; /*displays the expense total to the website */
 }
 
-function addition(){
-    const totalIncome = holdsIncome()
-    const totalExpense = holdsExpense()
-    
-    totalIncome.innerHTML = displayIncTotal.value;
+function budgetRemains(value, type){/*using income and expense values, it subtracts to get budget remaining */
 
-    console.log("Total Income:", totalIncome);
-    console.log("Total Expense:", totalExpense);
+  if (type == "income"){
+    budgetValue += value;
+  }
+  else if (type == "expense"){
+    budgetValue -= value;
+  }
 
-
-    const outputInc = document.querySelector(".total1"); 
-    outputInc.textContent = `Total Income: ${totalIncome}`; // Correctly update the total income display
-
-    const outputExp = document.querySelector(".total2"); 
-    outputExp.textContent = `Total Expense: ${totalExpense}`; // Correctly update the total expense display
-
-
+  document.getElementById("bugetRemaining").value = budgetValue; /*displays the budgetRemaining to the website */
 }
+
+function addition(value, type){ /*used to add either total income or expense values that the user inputted */
+  if (type == "income"){
+    return totalIncome += value;
+  }
+
+  else if (type == "expense"){
+    return totalExpense += value;
+  }
+}
+
+
 
 // DOM elements for converter
 const convertBtn = document.getElementById("convertBtn");
