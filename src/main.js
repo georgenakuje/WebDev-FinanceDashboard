@@ -1,3 +1,11 @@
+import { createApp } from 'vue'
+import './assets/style.css'
+import App from './App.vue'
+import router from './router/index.js'
+
+createApp(App).use(router).mount('#app')
+
+
 var totalIncome = 0;
 var totalExpense = 0;
 var budgetValue = 0;
