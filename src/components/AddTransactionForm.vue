@@ -27,25 +27,50 @@ export default {
     }
   },
   methods: {
-    submitIncome() {
-      this.$emit('transaction-added', {
+    async submitIncome() {
+      const newTransaction = {
         desc: this.incomeTitle,
         amount: this.incomeValue,
         date: new Date().toISOString()
-      })
-      this.incomeTitle = ''
-      this.incomeValue = 0
+      }
+
+      try {
+        const response = await fetch('http://localhost:5000/api/transactions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newTransaction)
+        })
+
+        const saved = await response.json()
+        this.$emit('transaction-added', saved)
+        this.incomeTitle = ''
+        this.incomeValue = 0
+      } catch (err) {
+        console.error('Error submitting income:', err)
+      }
     },
-    submitExpense() {
-      this.$emit('transaction-added', {
+    async submitExpense() {
+      const newTransaction = {
         desc: this.expenseTitle,
         amount: -this.expenseValue,
         date: new Date().toISOString()
-      })
-      this.expenseTitle = ''
-      this.expenseValue = 0
+      }
+
+      try {
+        const response = await fetch('http://localhost:5000/api/transactions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newTransaction)
+        })
+
+        const saved = await response.json()
+        this.$emit('transaction-added', saved)
+        this.expenseTitle = ''
+        this.expenseValue = 0
+      } catch (err) {
+        console.error('Error submitting expense:', err)
+      }
     }
   }
 }
 </script>
-
