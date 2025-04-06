@@ -14,21 +14,32 @@
         <span class="material-symbols-sharp">receipt_long</span> Transactions
       </router-link>
 
-      <!-- Placeholder links (not functional yet) -->
-      <a href="#"><span class="material-symbols-sharp">person_outline</span> Customers</a>
-      <a href="#"><span class="material-symbols-sharp">insights</span> Analytics</a>
-      <a href="#"><span class="material-symbols-sharp">mail_outline</span> Messages <span class="msg_count">5</span></a>
-      <a href="#"><span class="material-symbols-sharp">report</span> Reports</a>
-      <a href="#"><span class="material-symbols-sharp">settings</span> Settings</a>
+      <router-link to="/customers" class="nav-item">
+        <span class="material-symbols-sharp">person_outline</span> Customers
+      </router-link>
 
-      <router-link
-        v-if="!isLoggedIn" to="/login" class="nav-item">
+      <router-link to="/analytics" class="nav-item">
+        <span class="material-symbols-sharp">insights</span> Analytics
+      </router-link>
+
+      <a href="#"
+        ><span class="material-symbols-sharp">mail_outline</span> Messages
+        <span class="msg_count">5</span></a
+      >
+      <router-link to="/reports" class="nav-item">
+        <span class="material-symbols-sharp">report</span> Reports
+      </router-link>
+
+      <router-link to="/settings" class="nav-item">
+        <span class="material-symbols-sharp">settings</span> Settings
+      </router-link>
+
+      <router-link v-if="!isLoggedIn" to="/login" class="nav-item">
         <span class="material-symbols-sharp">login</span> Login
       </router-link>
       <a v-else href="#" class="nav-item" @click.prevent="handleLogout">
         <span class="material-symbols-sharp">logout</span> Logout
       </a>
-
     </nav>
   </aside>
 </template>
@@ -37,26 +48,26 @@
 export default {
   data() {
     return {
-      isLoggedIn: false
-    }
-  }, 
+      isLoggedIn: false,
+    };
+  },
   created() {
-    this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'
-  }, 
+    this.isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  },
   watch: {
-    '$route'() {
+    $route() {
       //refresh login state on every route change
-      this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'
-    }
-  }, 
+      this.isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    },
+  },
   methods: {
     handleLogout() {
-      localStorage.removeItem('isLoggedIn')
-      this.isLoggedIn = false
-      this.$router.push('/login')
-    }
-  }
-}
+      localStorage.removeItem("isLoggedIn");
+      this.isLoggedIn = false;
+      this.$router.push("/login");
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -65,7 +76,7 @@ export default {
   background-color: #fff;
   height: 100vh;
   padding: 2rem 1rem;
-  box-shadow: 4px 0 15px rgba(0,0,0,0.05);
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
   position: fixed;
   left: 0;
   top: 0;
