@@ -35,11 +35,23 @@ export default {
       }
 
       try {
-        const response = await fetch('http://localhost:5000/api/transactions', {
+        const token = localStorage.getItem('token')
+        if (!token) {
+          throw new Error('No authentication token found')
+        }
+
+        const response = await fetch('http://localhost:3000/api/transactions', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
           body: JSON.stringify(newTransaction)
         })
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
 
         const saved = await response.json()
         this.$emit('transaction-added', saved)
@@ -47,6 +59,7 @@ export default {
         this.incomeValue = 0
       } catch (err) {
         console.error('Error submitting income:', err)
+        alert('Failed to add transaction. Please make sure you are logged in.')
       }
     },
     async submitExpense() {
@@ -57,11 +70,23 @@ export default {
       }
 
       try {
-        const response = await fetch('http://localhost:5000/api/transactions', {
+        const token = localStorage.getItem('token')
+        if (!token) {
+          throw new Error('No authentication token found')
+        }
+
+        const response = await fetch('http://localhost:3000/api/transactions', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
           body: JSON.stringify(newTransaction)
         })
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
 
         const saved = await response.json()
         this.$emit('transaction-added', saved)
@@ -69,6 +94,7 @@ export default {
         this.expenseValue = 0
       } catch (err) {
         console.error('Error submitting expense:', err)
+        alert('Failed to add transaction. Please make sure you are logged in.')
       }
     }
   }
