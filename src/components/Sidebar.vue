@@ -1,44 +1,44 @@
 <template>
   <aside class="sidebar">
-    <div class="top">
-      <h2 class="logo">C <span class="danger">FINANCE</span></h2>
+    <div class="sidebar-header">
+      <h2 class="logo">C <span class="highlight">FINANCE</span></h2>
     </div>
 
     <nav class="nav-links">
-      <!-- Router links -->
       <router-link to="/" class="nav-item">
-        <span class="material-symbols-sharp">grid_view</span> Dashboard
+        <span class="material-symbols-sharp">grid_view</span>
+        <span>Dashboard</span>
       </router-link>
 
       <router-link to="/transactions" class="nav-item">
-        <span class="material-symbols-sharp">receipt_long</span> Transactions
-      </router-link>
-
-      <router-link to="/customers" class="nav-item">
-        <span class="material-symbols-sharp">person_outline</span> Customers
+        <span class="material-symbols-sharp">receipt_long</span>
+        <span>Transactions</span>
       </router-link>
 
       <router-link to="/analytics" class="nav-item">
-        <span class="material-symbols-sharp">insights</span> Analytics
+        <span class="material-symbols-sharp">insights</span>
+        <span>Analytics</span>
       </router-link>
 
-      <a href="#"
-        ><span class="material-symbols-sharp">mail_outline</span> Messages
-        <span class="msg_count">5</span></a
-      >
       <router-link to="/reports" class="nav-item">
-        <span class="material-symbols-sharp">report</span> Reports
+        <span class="material-symbols-sharp">report</span>
+        <span>Reports</span>
       </router-link>
 
       <router-link to="/settings" class="nav-item">
-        <span class="material-symbols-sharp">settings</span> Settings
+        <span class="material-symbols-sharp">settings</span>
+        <span>Settings</span>
       </router-link>
 
+      <div class="nav-divider"></div>
+
       <router-link v-if="!isLoggedIn" to="/login" class="nav-item">
-        <span class="material-symbols-sharp">login</span> Login
+        <span class="material-symbols-sharp">login</span>
+        <span>Login</span>
       </router-link>
       <a v-else href="#" class="nav-item" @click.prevent="handleLogout">
-        <span class="material-symbols-sharp">logout</span> Logout
+        <span class="material-symbols-sharp">logout</span>
+        <span>Logout</span>
       </a>
     </nav>
   </aside>
@@ -56,13 +56,13 @@ export default {
   },
   watch: {
     $route() {
-      //refresh login state on every route change
       this.isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     },
   },
   methods: {
     handleLogout() {
       localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("token");
       this.isLoggedIn = false;
       this.$router.push("/login");
     },
@@ -73,59 +73,91 @@ export default {
 <style scoped>
 .sidebar {
   width: 250px;
-  background-color: #fff;
+  background: white;
   height: 100vh;
-  padding: 2rem 1rem;
-  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
   position: fixed;
   left: 0;
   top: 0;
+  padding: 24px 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.sidebar-header {
+  padding: 0 8px 24px;
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .logo {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #1d3557;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
 }
 
-.logo .danger {
-  color: #e63946;
+.logo .highlight {
+  color: #3b82f6;
 }
 
 .nav-links {
-  margin-top: 2rem;
+  margin-top: 24px;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 8px;
 }
 
-.nav-links a,
-.nav-links .nav-item {
+.nav-item {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 12px;
+  padding: 12px 16px;
+  color: #64748b;
   text-decoration: none;
-  color: #333;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.nav-item.router-link-active {
+  background: #eff6ff;
+  color: #3b82f6;
   font-weight: 500;
-  transition: color 0.2s ease;
 }
 
-.nav-links a:hover,
-.nav-links .nav-item:hover {
-  color: #3b82f6;
+.nav-item .material-symbols-sharp {
+  font-size: 20px;
 }
 
-.router-link-active {
-  color: #3b82f6;
-  font-weight: bold;
+.nav-divider {
+  height: 1px;
+  background: #e2e8f0;
+  margin: 16px 0;
 }
 
-.msg_count {
-  background-color: #e63946;
-  color: white;
-  font-size: 0.75rem;
-  border-radius: 50%;
-  padding: 0.2rem 0.5rem;
-  margin-left: auto;
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 16px;
+  }
+
+  .nav-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .nav-item {
+    padding: 8px 12px;
+  }
+
+  .nav-item span:last-child {
+    display: none;
+  }
 }
 </style>

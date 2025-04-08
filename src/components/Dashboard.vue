@@ -1,152 +1,217 @@
 <!-- src/views/Dashboard.vue -->
 <template>
-    <div class="dashboard-layout">
-      <h1 class="title">Finance Tracker</h1>
-  
-      <div class="layout-grid">
-        <!-- Left Column -->
-        <div class="left-section">
-          <AddTransactionForm @transaction-added="handleAdd" />
-  
-          <div class="summary-cards">
-            <SummaryCard title="Total Income" :value="totalIncome" color="green" />
-            <SummaryCard title="Budget Remaining" :value="totalIncome + totalExpense" color="black" />
-          </div>
-        </div>
-  
-        <!-- Right Column -->
-        <div class="right-section">
-          <CurrencyConverter />
-        </div>
+  <div class="dashboard-container">
+    <div class="dashboard-header">
+      <h1>Dashboard</h1>
+    </div>
+
+    <div class="summary-cards">
+      <div class="summary-card">
+        <h3>Total Income</h3>
+        <p class="amount income">{{ formatCurrency(totalIncome) }}</p>
+      </div>
+
+      <div class="summary-card">
+        <h3>Total Expenses</h3>
+        <p class="amount expense">{{ formatCurrency(totalExpense) }}</p>
+      </div>
+
+      <div class="summary-card">
+        <h3>Net Worth</h3>
+        <p class="amount">{{ formatCurrency(totalIncome + totalExpense) }}</p>
       </div>
     </div>
-  </template>
-  
-  <script>
-  import AddTransactionForm from '../components/AddTransactionForm.vue'
-  import SummaryCard from '../components/SummaryCard.vue'
-  import CurrencyConverter from '../components/CurrencyConverter.vue'
-  
-  export default {
-    components: {
-      AddTransactionForm,
-      SummaryCard,
-      CurrencyConverter
-    },
-    data() {
-      return {
-        transactions: []
-      }
-    },
-    computed: {
-      totalIncome() {
-        return this.transactions.filter(t => t.amount > 0).reduce((sum, t) => sum + t.amount, 0)
-      },
-      totalExpense() {
-        return this.transactions.filter(t => t.amount < 0).reduce((sum, t) => sum + t.amount, 0)
-      }
-    },
-    methods: {
-      async loadTransactions() {
-        try {
-          const token = localStorage.getItem('token')
-          if (!token) {
-            console.error('No authentication token found')
-            return
-          }
 
-          const response = await fetch('http://localhost:3000/api/transactions', {
-            headers: {
-              'Authorization': `Bearer ${token}`
-            }
-          })
+    <div class="dashboard-grid">
+      <div class="card">
+        <h3>Add Transaction</h3>
+        <AddTransactionForm @transaction-added="handleAdd" />
+      </div>
 
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`)
-          }
+      <div class="card">
+        <h3>Currency Converter</h3>
+        <CurrencyConverter />
+      </div>
+    </div>
+  </div>
+</template>
 
-          this.transactions = await response.json()
-        } catch (error) {
-          console.error('Error loading transactions:', error)
-        }
-      },
-      handleAdd(tx) {
-        this.transactions.push(tx)
-      }
-    },
-    async mounted() {
-      await this.loadTransactions()
+<script>
+import AddTransactionForm from './AddTransactionForm.vue'
+import CurrencyConverter from './CurrencyConverter.vue'
+
+export default {
+  components: {
+    AddTransactionForm,
+    CurrencyConverter
+  },
+  data() {
+    return {
+      transactions: []
     }
+  },
+  computed: {
+    totalIncome() {
+      return this.transactions
+        .filter(t => t.amount > 0)
+        .reduce((sum, t) => sum + t.amount, 0)
+    },
+    totalExpense() {
+      return Math.abs(this.transactions
+        .filter(t => t.amount < 0)
+        .reduce((sum, t) => sum + t.amount, 0))
+    }
+  },
+  methods: {
+    async loadTransactions() {
+      try {
+        const token = localStorage.getItem('token')
+        if (!token) {
+          console.error('No authentication token found')
+          return
+        }
+
+        const response = await fetch('http://localhost:3000/api/transactions', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        this.transactions = await response.json()
+      } catch (error) {
+        console.error('Error loading transactions:', error)
+      }
+    },
+    handleAdd(tx) {
+      this.transactions.push(tx)
+    },
+    formatCurrency(value) {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      }).format(value)
+    }
+  },
+  async mounted() {
+    await this.loadTransactions()
   }
-  </script>
-  
-  <style scoped>
-  .transaction-list {
-    margin-top: 2rem;
-    padding: 1rem;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+</script>
+
+<style scoped>
+.dashboard-container {
+  padding: 16px;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+.dashboard-header {
+  margin-bottom: 24px;
+}
+
+.dashboard-header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.summary-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+}
+
+.summary-card h3 {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0 0 8px 0;
+  font-weight: 500;
+}
+
+.summary-card .amount {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.summary-card .amount.income {
+  color: #22c55e;
+}
+
+.summary-card .amount.expense {
+  color: #ef4444;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.card h3 {
+  font-size: 16px;
+  color: #1e293b;
+  margin: 0 0 16px 0;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .dashboard-container {
+    padding: 12px;
   }
 
-  .transaction-list h2 {
-    margin-bottom: 1rem;
-    color: #333;
+  .summary-cards {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 
-  .transaction-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #eee;
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 
-  .transaction-details {
-    flex: 1;
+  .summary-card {
+    padding: 16px;
   }
 
-  .transaction-title {
-    font-weight: 500;
-    color: #333;
+  .card {
+    padding: 16px;
   }
 
-  .transaction-date {
-    font-size: 0.8rem;
-    color: #666;
-    margin-left: 1rem;
+  .summary-card .amount {
+    font-size: 18px;
   }
-
-  .transaction-amount {
-    font-weight: 500;
-    margin: 0 1rem;
-  }
-
-  .transaction-amount.income {
-    color: #28a745;
-  }
-
-  .transaction-amount.expense {
-    color: #dc3545;
-  }
-
-  .delete-btn {
-    background: none;
-    border: none;
-    color: #dc3545;
-    font-size: 1.2rem;
-    cursor: pointer;
-    padding: 0 0.5rem;
-  }
-
-  .delete-btn:hover {
-    color: #c82333;
-  }
-
-  .no-transactions {
-    text-align: center;
-    color: #666;
-    padding: 2rem;
-  }
-  </style>
+}
+</style>
   

@@ -1,9 +1,9 @@
 <template>
-  <div class="dashboard-layout">
+  <div class="app-layout">
     <Sidebar />
-    <div class="content">
+    <main class="main-content">
       <router-view />
-    </div>
+    </main>
   </div>
 </template>
 
@@ -19,3 +19,25 @@ export default {
   }
 }
 </script>
+
+<style>
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 250px;
+  padding: 24px;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    padding: 16px;
+  }
+}
+</style>
