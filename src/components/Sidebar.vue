@@ -40,15 +40,23 @@
         <span class="material-symbols-sharp">logout</span>
         <span>Logout</span>
       </a>
+
+      <button class="dark-toggle" @click="toggleDark">
+        {{ isDark ? "Light" : "Dark" }}
+      </button>
     </nav>
   </aside>
 </template>
 
 <script>
+import { inject } from "vue";
+
 export default {
   data() {
     return {
       isLoggedIn: false,
+      isDark: inject("isDark"),
+      toggleDark: inject("toggleDark"),
     };
   },
   created() {
@@ -158,6 +166,23 @@ export default {
 
   .nav-item span:last-child {
     display: none;
+  }
+
+  .dark-toggle {
+    margin-top: 16px;
+    padding: 10px;
+    background: none;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    width: 100%;
+    cursor: pointer;
+    font-weight: 600;
+    color: #334155;
+    transition: all 0.2s ease;
+  }
+
+  .dark-toggle:hover {
+    background: #f1f5f9;
   }
 }
 </style>

@@ -333,3 +333,533 @@ button:hover {
 .signup-link a:hover {
   text-decoration: underline;
 }
+
+/* === Dark theme - Dashboard === */
+:root {
+  --bg: #ffffff;
+  --text: #000000;
+}
+
+.dark {
+  --bg: #121212;
+  --text: #e0e0e0;
+}
+
+.dark body,
+.dark html {
+  background-color: #121212 !important;
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark .app-layout,
+.dark .dashboard-layout,
+.dark .main-content,
+.dark .content,
+.dark .layout-grid,
+.dark .homepage,
+.dark .left-section,
+.dark .right-section {
+  background-color: #1e1e1e !important;
+  color: var(--text);
+}
+
+.dark .dashboard-container {
+  background-color: #121212 !important;
+}
+
+.dark .card,
+.dark .currency-card {
+  background-color: #1e1e1e !important;
+  color: var(--text);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+}
+
+.dark .summary-card {
+  background-color: #2a2a2a !important;
+  color: var(--text);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+}
+
+.dark .summary-card .label {
+  color: #cbd5e1;
+}
+
+.dark .summary-card .value {
+  color: var(--text);
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+.dark .summary-card .amount {
+  color: #e0e0e0 !important;
+}
+
+.dark .summary-card .value.green {
+  color: #16f58a;
+}
+
+.dark .summary-card .value.red {
+  color: #ff6666;
+}
+
+.dark .amount.income {
+  color: #16f58a !important;
+}
+
+.dark .amount.expense {
+  color: #ff6666 !important;
+}
+
+.dark .dashboard-header h1,
+.dark .summary-card h3,
+.dark .card h3 {
+  color: #e0e0e0 !important;
+}
+
+.dark input,
+.dark select {
+  background-color: #2a2a2a;
+  color: var(--text);
+  border-color: #444;
+}
+
+.dark input::placeholder {
+  color: #888;
+}
+
+.dark .sidebar {
+  background-color: #1a1a1a !important;
+  color: var(--text);
+}
+
+.dark .select-box {
+  background-color: #2a2a2a !important;
+  border-color: #444 !important;
+  color: var(--text);
+}
+
+.dark .select-box select {
+  background-color: transparent;
+  color: var(--text);
+}
+
+.dark .nav-item {
+  color: #cbd5e1;
+}
+
+.dark .nav-item:hover {
+  background-color: #2a2a2a;
+  color: white;
+}
+
+.dark .login-box,
+.dark .login-card,
+.dark .register-card {
+  background-color: #1f1f1f !important;
+  color: var(--text);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6,
+.dark label,
+.dark .title,
+.dark .label {
+  color: var(--text) !important;
+}
+
+html,
+body,
+#app,
+.dashboard-layout,
+.content,
+.card,
+.sidebar,
+.currency-card,
+.summary-card,
+.login-card,
+.main-content {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+}
+
+/* === Dark theme - Transactions === */
+.dark .transactions-container {
+  background-color: #121212 !important;
+  color: var(--text);
+}
+
+.dark .transactions-container input[type="text"] {
+  background-color: #2a2a2a !important;
+  color: var(--text);
+  border-color: #444;
+}
+
+.dark .transactions-container input[type="date"] {
+  background-color: #2a2a2a !important;
+  color: var(--text);
+  border-color: #444;
+}
+
+.dark .date-range-picker,
+.dark .date-filter-card {
+  background-color: #1e1e1e !important;
+  border-color: #2a2a2a;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.dark .no-transactions {
+  background-color: #1e1e1e !important;
+  color: var(--text);
+  border-color: #2a2a2a;
+}
+
+.dark .transactions-container {
+  background-color: #121212 !important;
+  color: #e0e0e0 !important;
+}
+
+.dark .transactions-header h1 {
+  color: #e0e0e0 !important;
+}
+
+.dark .search-box input,
+.dark .date-filter input[type="date"] {
+  background-color: #2a2a2a !important;
+  color: #e0e0e0 !important;
+  border-color: #444 !important;
+}
+
+.dark .search-box input::placeholder,
+.dark .date-filter input::placeholder {
+  color: #aaa !important;
+}
+
+.dark .date-filter {
+  background-color: #1e1e1e !important;
+  border: 1px solid #2a2a2a !important;
+}
+
+.dark .date-filter span {
+  color: #ccc !important;
+}
+
+.dark .transactions-list {
+  background-color: #1e1e1e !important;
+  color: #e0e0e0 !important;
+  border: 1px solid #2a2a2a;
+}
+
+.dark .transaction-title,
+.dark .transaction-date,
+.dark .transaction-amount {
+  color: #e0e0e0 !important;
+}
+
+.dark .transaction-amount.income {
+  color: #16f58a !important;
+}
+
+.dark .transaction-amount.expense {
+  color: #ff6666 !important;
+}
+
+.dark .edit-input {
+  background-color: #2a2a2a !important;
+  color: #e0e0e0 !important;
+  border-color: #444 !important;
+}
+
+.dark .edit-input::placeholder {
+  color: #aaa !important;
+}
+
+.dark .no-transactions {
+  background-color: #1e1e1e !important;
+  color: #aaa !important;
+  border: 1px solid #2a2a2a !important;
+}
+
+/* === Dark theme - Analytics === */
+.dark .analytics-container {
+  background-color: #121212 !important;
+  color: var(--text);
+}
+
+.dark .analytics-container h1,
+.dark .analytics-container h2,
+.dark .analytics-container h3,
+.dark .analytics-container h4 {
+  color: var(--text);
+}
+
+.dark .filter-section,
+.dark .analytics-filters,
+.dark .analytics-header,
+.dark .analytics-controls {
+  background-color: #1e1e1e !important;
+  border: 1px solid #2a2a2a;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  color: var(--text);
+}
+
+.dark .date-input,
+.dark .analytics-container input[type="date"] {
+  background-color: #2a2a2a;
+  color: var(--text);
+  border-color: #444;
+}
+
+.dark .analytics-container input[type="date"]::placeholder {
+  color: #888;
+}
+
+.dark .filter-btn,
+.dark .analytics-container button {
+  background-color: #2a2a2a;
+  color: var(--text);
+  border: 1px solid #444;
+}
+
+.dark .filter-btn.active,
+.dark .analytics-container button.active {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.dark .summary-card,
+.dark .analytics-card {
+  background-color: #2a2a2a !important;
+  color: var(--text);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dark .summary-card h3,
+.dark .summary-card p,
+.dark .summary-card span,
+.dark .analytics-card h3,
+.dark .analytics-card p,
+.dark .analytics-card span {
+  color: var(--text);
+}
+
+.dark .summary-card .expense-text,
+.dark .analytics-card .expense,
+.dark .expense-text {
+  color: #ff6666 !important;
+}
+
+.dark .analytics-card .income,
+.dark .trend.positive {
+  color: #16f58a !important;
+}
+
+.dark .trend.negative {
+  color: #ff6666 !important;
+}
+
+.dark .chart-card,
+.dark .chart-container,
+.dark .analytics-chart {
+  background-color: #1e1e1e !important;
+  border: 1px solid #2a2a2a;
+  color: var(--text);
+}
+
+.dark .custom-date-range span,
+.dark .date-separator {
+  color: #cbd5e1 !important;
+}
+
+/* === Dark theme - Reports === */
+.dark .reports-container {
+  background-color: #121212 !important;
+  color: var(--text);
+}
+
+.dark .reports-container h1,
+.dark .reports-container h2,
+.dark .reports-container h3,
+.dark .reports-container label,
+.dark .reports-container p {
+  color: var(--text);
+}
+
+.dark .report-options,
+.dark .reports-card {
+  background-color: #1e1e1e !important;
+  color: var(--text);
+  border: 1px solid #2a2a2a;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.dark .date-input,
+.dark .reports-container input[type="date"] {
+  background-color: #2a2a2a !important;
+  color: var(--text);
+  border-color: #444;
+}
+
+.dark .date-input::placeholder,
+.dark .reports-container input[type="date"]::placeholder {
+  color: #888;
+}
+
+.dark .download-btn,
+.dark .reports-container button,
+.dark .reports-container .btn-download {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  transition: background 0.2s ease;
+}
+
+.dark .download-btn:hover,
+.dark .reports-container button:hover,
+.dark .reports-container .btn-download:hover {
+  background-color: #2563eb;
+}
+
+.dark .download-btn:disabled {
+  background: #555;
+  color: #aaa;
+  cursor: not-allowed;
+}
+/* === Dark theme - Login/Register === */
+.dark .login-wrapper,
+.dark .register-wrapper {
+  background-color: #121212 !important;
+}
+
+.dark .login-card,
+.dark .register-card,
+.dark .login-box {
+  background-color: #1e1e1e !important;
+  color: var(--text);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.dark .login-card input,
+.dark .register-card input {
+  background-color: #2a2a2a !important;
+  color: var(--text);
+  border: 1px solid #444;
+}
+
+.dark .login-card input::placeholder,
+.dark .register-card input::placeholder {
+  color: #888;
+}
+
+.dark .login-card label,
+.dark .register-card label {
+  color: var(--text);
+}
+
+.dark .login-card h1,
+.dark .register-card h2,
+.dark .login-box h2 {
+  color: var(--text);
+}
+
+.dark .signup-link,
+.dark .signup-link a {
+  color: #60a5fa;
+}
+
+.dark .signup-link {
+  color: var(--text) !important;
+}
+
+.dark .signup-link a:hover {
+  text-decoration: underline;
+}
+
+.dark .login-card button,
+.dark .register-card button {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  transition: background 0.2s ease;
+}
+
+.dark .login-card button:hover,
+.dark .register-card button:hover {
+  background-color: #2563eb;
+}
+/* === Light Theme === */
+body:not(.dark) h1,
+body:not(.dark) h2,
+body:not(.dark) h3,
+body:not(.dark) h4,
+body:not(.dark) h5,
+body:not(.dark) h6,
+body:not(.dark) label,
+body:not(.dark) .title,
+body:not(.dark) .label {
+  color: #1e293b;
+}
+
+body:not(.dark) .amount.income {
+  color: #16a34a;
+}
+
+body:not(.dark) .amount.expense {
+  color: #dc2626;
+}
+
+body:not(.dark) .summary-card .value {
+  color: #0f172a;
+}
+body:not(.dark) .signup-link {
+  color: #0f172a;
+}
+body:not(.dark) .custom-date-range span,
+body:not(.dark) .date-separator {
+  color: #64748b !important;
+}
+
+body:not(.dark) .chart-card {
+  background-color: #f1f5f9;
+  color: #1e293b;
+}
+
+body:not(.dark) .chart-card .tick text {
+  fill: #334155 !important;
+}
+
+body:not(.dark) .chart-card .grid line {
+  stroke: #687891;
+  opacity: 0.9;
+}
+.conversion-result {
+  color: var(--text);
+}
+body:not(.dark) .conversion-result {
+  color: #334155 !important;
+}
+.conversion-result {
+  font-weight: 500;
+}
+
+body:not(.dark) .conversion-result {
+  color: #2c3e5c;
+}
+
+.dark .conversion-result {
+  color: #e0e0e0 !important;
+}
