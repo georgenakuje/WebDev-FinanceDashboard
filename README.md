@@ -27,6 +27,11 @@ npm run dev
 http://localhost:5173/
 ```
 ## Step 5
+- To run the server, input:
+```bash
+node server/server.js
+```
+## Step 6
 - You're now on the website, to get started, register an account then login.
 
 
