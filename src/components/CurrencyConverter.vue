@@ -40,7 +40,7 @@
     <button class="convert-btn" @click="convert">Convert</button>
 
     <div class="result">
-      <p>{{ result }}</p>
+      <p class="conversion-result">{{ result }}</p>
     </div>
   </div>
 </template>

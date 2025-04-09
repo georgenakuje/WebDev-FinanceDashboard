@@ -37,69 +37,71 @@
 </template>
 
 <script>
-import AddTransactionForm from './AddTransactionForm.vue'
-import CurrencyConverter from './CurrencyConverter.vue'
+import AddTransactionForm from "./AddTransactionForm.vue";
+import CurrencyConverter from "./CurrencyConverter.vue";
 
 export default {
   components: {
     AddTransactionForm,
-    CurrencyConverter
+    CurrencyConverter,
   },
   data() {
     return {
-      transactions: []
-    }
+      transactions: [],
+    };
   },
   computed: {
     totalIncome() {
       return this.transactions
-        .filter(t => t.amount > 0)
-        .reduce((sum, t) => sum + t.amount, 0)
+        .filter((t) => t.amount > 0)
+        .reduce((sum, t) => sum + t.amount, 0);
     },
     totalExpense() {
-      return Math.abs(this.transactions
-        .filter(t => t.amount < 0)
-        .reduce((sum, t) => sum + t.amount, 0))
-    }
+      return Math.abs(
+        this.transactions
+          .filter((t) => t.amount < 0)
+          .reduce((sum, t) => sum + t.amount, 0)
+      );
+    },
   },
   methods: {
     async loadTransactions() {
       try {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem("token");
         if (!token) {
-          console.error('No authentication token found')
-          return
+          console.error("No authentication token found");
+          return;
         }
 
-        const response = await fetch('http://localhost:3000/api/transactions', {
+        const response = await fetch("http://localhost:3000/api/transactions", {
           headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        })
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        this.transactions = await response.json()
+        this.transactions = await response.json();
       } catch (error) {
-        console.error('Error loading transactions:', error)
+        console.error("Error loading transactions:", error);
       }
     },
     handleAdd(tx) {
-      this.transactions.push(tx)
+      this.transactions.push(tx);
     },
     formatCurrency(value) {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD'
-      }).format(value)
-    }
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(value);
+    },
   },
   async mounted() {
-    await this.loadTransactions()
-  }
-}
+    await this.loadTransactions();
+  },
+};
 </script>
 
 <style scoped>
@@ -214,4 +216,3 @@ export default {
   }
 }
 </style>
-  

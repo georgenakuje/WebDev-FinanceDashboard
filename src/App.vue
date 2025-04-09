@@ -8,16 +8,46 @@
 </template>
 
 <script>
-import Sidebar from './components/Sidebar.vue'
+import Sidebar from "./components/Sidebar.vue";
+import { ref, provide, onMounted } from "vue";
 
 export default {
-  components: { Sidebar }, 
+  components: { Sidebar },
+
   computed: {
     isLoginPage() {
-      return this.$route.path === '/login'
-    }
-  }
-}
+      return this.$route.path === "/login";
+    },
+  },
+  setup() {
+    const isDark = ref(localStorage.getItem("darkMode") === "true");
+
+    const toggleDark = () => {
+      isDark.value = !isDark.value;
+      localStorage.setItem("darkMode", isDark.value);
+      document.documentElement.classList.toggle("dark", isDark.value);
+    };
+
+    provide("isDark", isDark);
+    provide("toggleDark", toggleDark);
+
+    onMounted(() => {
+      const saved = localStorage.getItem("darkMode");
+
+      if (saved === null) {
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        isDark.value = prefersDark;
+        document.documentElement.classList.toggle("dark", prefersDark);
+      } else {
+        document.documentElement.classList.toggle("dark", isDark.value);
+      }
+    });
+
+    return {};
+  },
+};
 </script>
 
 <style>

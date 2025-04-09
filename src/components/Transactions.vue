@@ -4,25 +4,17 @@
       <h1>Transactions</h1>
       <div class="filters">
         <div class="search-box">
-          <input 
-            type="text" 
-            v-model="searchQuery" 
+          <input
+            type="text"
+            v-model="searchQuery"
             placeholder="Search transactions..."
             @input="filterTransactions"
           />
         </div>
         <div class="date-filter">
-          <input 
-            type="date" 
-            v-model="startDate" 
-            @change="filterTransactions"
-          />
+          <input type="date" v-model="startDate" @change="filterTransactions" />
           <span>to</span>
-          <input 
-            type="date" 
-            v-model="endDate" 
-            @change="filterTransactions"
-          />
+          <input type="date" v-model="endDate" @change="filterTransactions" />
         </div>
       </div>
     </div>
@@ -32,57 +24,65 @@
         No transactions found
       </div>
       <div v-else class="transactions">
-        <div v-for="tx in filteredTransactions" :key="tx.id" class="transaction-item">
+        <div
+          v-for="tx in filteredTransactions"
+          :key="tx.id"
+          class="transaction-item"
+        >
           <div class="transaction-details">
             <div class="transaction-field">
-              <input 
-                v-if="isEditing(tx.id)" 
-                v-model="tx.editDescription" 
+              <input
+                v-if="isEditing(tx.id)"
+                v-model="tx.editDescription"
                 class="edit-input"
               />
               <span v-else class="transaction-title">{{ tx.description }}</span>
             </div>
-            
+
             <div class="transaction-field">
-              <input 
-                v-if="isEditing(tx.id)" 
-                type="number" 
-                v-model.number="tx.editAmount" 
+              <input
+                v-if="isEditing(tx.id)"
+                type="number"
+                v-model.number="tx.editAmount"
                 class="edit-input"
               />
-              <span v-else :class="['transaction-amount', tx.amount > 0 ? 'income' : 'expense']">
-                {{ tx.amount > 0 ? '+' : '' }}{{ formatCurrency(tx.amount) }}
+              <span
+                v-else
+                :class="[
+                  'transaction-amount',
+                  tx.amount > 0 ? 'income' : 'expense',
+                ]"
+              >
+                {{ tx.amount > 0 ? "+" : "" }}{{ formatCurrency(tx.amount) }}
               </span>
             </div>
-            
+
             <div class="transaction-field">
-              <input 
-                v-if="isEditing(tx.id)" 
-                type="date" 
-                v-model="tx.editDate" 
+              <input
+                v-if="isEditing(tx.id)"
+                type="date"
+                v-model="tx.editDate"
                 class="edit-input"
               />
-              <span v-else class="transaction-date">{{ new Date(tx.date).toLocaleDateString() }}</span>
+              <span v-else class="transaction-date">{{
+                new Date(tx.date).toLocaleDateString()
+              }}</span>
             </div>
           </div>
-          
+
           <div class="transaction-actions">
-            <button 
-              v-if="isEditing(tx.id)" 
-              @click="saveEdit(tx)" 
+            <button
+              v-if="isEditing(tx.id)"
+              @click="saveEdit(tx)"
               class="action-btn save-btn"
             >
               Save
             </button>
-            <button 
-              v-else 
-              @click="startEdit(tx)" 
-              class="action-btn edit-btn"
-            >
+            <button v-else @click="startEdit(tx)" class="action-btn edit-btn">
               Edit
             </button>
-            <button 
-              @click="deleteTransaction(tx.id)" 
+            <button
+              @click="deleteTransaction(tx.id)"
               class="action-btn delete-btn"
             >
               Delete
@@ -99,136 +99,145 @@ export default {
   data() {
     return {
       transactions: [],
-      searchQuery: '',
-      startDate: '',
-      endDate: '',
+      searchQuery: "",
+      startDate: "",
+      endDate: "",
       filteredTransactions: [],
-      editingId: null
-    }
+      editingId: null,
+    };
   },
   methods: {
     async loadTransactions() {
       try {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem("token");
         if (!token) {
-          console.error('No authentication token found')
-          return
+          console.error("No authentication token found");
+          return;
         }
 
-        const response = await fetch('http://localhost:3000/api/transactions', {
+        const response = await fetch("http://localhost:3000/api/transactions", {
           headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        })
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json()
-        this.transactions = data
-        this.filterTransactions()
+        const data = await response.json();
+        this.transactions = data;
+        this.filterTransactions();
       } catch (error) {
-        console.error('Error loading transactions:', error)
+        console.error("Error loading transactions:", error);
       }
     },
     filterTransactions() {
-      this.filteredTransactions = this.transactions.filter(tx => {
-        const matchesSearch = tx.description.toLowerCase().includes(this.searchQuery.toLowerCase())
-        const txDate = new Date(tx.date)
-        const start = this.startDate ? new Date(this.startDate) : null
-        const end = this.endDate ? new Date(this.endDate) : null
-        const matchesDate = (!start || txDate >= start) && (!end || txDate <= end)
-        return matchesSearch && matchesDate
-      })
+      this.filteredTransactions = this.transactions.filter((tx) => {
+        const matchesSearch = tx.description
+          .toLowerCase()
+          .includes(this.searchQuery.toLowerCase());
+        const txDate = new Date(tx.date);
+        const start = this.startDate ? new Date(this.startDate) : null;
+        const end = this.endDate ? new Date(this.endDate) : null;
+        const matchesDate =
+          (!start || txDate >= start) && (!end || txDate <= end);
+        return matchesSearch && matchesDate;
+      });
     },
     startEdit(tx) {
-      this.editingId = tx.id
-      tx.editDescription = tx.description
-      tx.editAmount = tx.amount
-      tx.editDate = new Date(tx.date).toISOString().split('T')[0]
+      this.editingId = tx.id;
+      tx.editDescription = tx.description;
+      tx.editAmount = tx.amount;
+      tx.editDate = new Date(tx.date).toISOString().split("T")[0];
     },
     async saveEdit(tx) {
       try {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem("token");
         if (!token) {
-          alert('Please log in again')
-          return
+          alert("Please log in again");
+          return;
         }
 
         const updatedData = {
           description: tx.editDescription,
           amount: parseFloat(tx.editAmount),
-          date: tx.editDate
-        }
+          date: tx.editDate,
+        };
 
-        const response = await fetch(`http://localhost:3000/api/transactions/${tx.id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify(updatedData)
-        })
+        const response = await fetch(
+          `http://localhost:3000/api/transactions/${tx.id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(updatedData),
+          }
+        );
 
         if (!response.ok) {
-          throw new Error('Failed to update transaction')
+          throw new Error("Failed to update transaction");
         }
 
         Object.assign(tx, {
           description: tx.editDescription,
           amount: parseFloat(tx.editAmount),
-          date: tx.editDate
-        })
-        
-        this.editingId = null
-        this.filterTransactions()
+          date: tx.editDate,
+        });
+
+        this.editingId = null;
+        this.filterTransactions();
       } catch (error) {
-        console.error('Error updating transaction:', error)
-        alert(error.message || 'Failed to update transaction')
+        console.error("Error updating transaction:", error);
+        alert(error.message || "Failed to update transaction");
       }
     },
     async deleteTransaction(id) {
       try {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem("token");
         if (!token) {
-          console.error('No authentication token found')
-          return
+          console.error("No authentication token found");
+          return;
         }
 
-        const response = await fetch(`http://localhost:3000/api/transactions/${id}`, {
-          method: 'DELETE',
-          headers: {
-            'Authorization': `Bearer ${token}`
+        const response = await fetch(
+          `http://localhost:3000/api/transactions/${id}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
-        })
+        );
 
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        this.transactions = this.transactions.filter(tx => tx.id !== id)
-        this.filterTransactions()
+        this.transactions = this.transactions.filter((tx) => tx.id !== id);
+        this.filterTransactions();
       } catch (error) {
-        console.error('Error deleting transaction:', error)
+        console.error("Error deleting transaction:", error);
       }
     },
     formatCurrency(value) {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD'
-      }).format(value)
-    }
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(value);
+    },
   },
   computed: {
     isEditing() {
-      return (id) => this.editingId === id
-    }
+      return (id) => this.editingId === id;
+    },
   },
   async mounted() {
-    await this.loadTransactions()
-  }
-}
+    await this.loadTransactions();
+  },
+};
 </script>
 
 <style scoped>
@@ -330,7 +339,10 @@ export default {
 .transaction-details {
   flex: 1;
   display: grid;
-  grid-template-columns: minmax(200px, 2fr) minmax(120px, 1fr) minmax(120px, 1fr);
+  grid-template-columns: minmax(200px, 2fr) minmax(120px, 1fr) minmax(
+      120px,
+      1fr
+    );
   gap: 16px;
   min-width: 0;
   align-items: center;
@@ -479,7 +491,10 @@ export default {
 
 @media (max-width: 992px) {
   .transaction-details {
-    grid-template-columns: minmax(150px, 2fr) minmax(100px, 1fr) minmax(100px, 1fr);
+    grid-template-columns: minmax(150px, 2fr) minmax(100px, 1fr) minmax(
+        100px,
+        1fr
+      );
     gap: 12px;
   }
 
@@ -547,4 +562,4 @@ export default {
     min-width: 0;
   }
 }
-</style> 
+</style>
