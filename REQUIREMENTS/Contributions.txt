@@ -29,6 +29,7 @@ Used fetch() to call a real-time currency exchange API, and displayed the result
 Handled API data formatting, flag icons, and swap functionality
 Implemented theme toggling with light and dark systems modes
 Used localstorage to persist the user's theme choices across sessions and applied theme classes across the app
+Integrated user’s currency selection from Settings to display on the Dashboard 
 
 Main Contributions: SVG, AJAX & Web Services
 
