@@ -4,6 +4,8 @@ import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
 import authRoutes from './routes/auth.js'
 import transactionRoutes from './routes/transactions.js'
+import settingsRoutes from './routes/settings.js'
+
 
 
 dotenv.config()
@@ -19,6 +21,8 @@ app.use(bodyParser.json())
 
 app.use('/api/transactions', transactionRoutes)
 app.use('/api/auth', authRoutes)
+app.use('/api/settings', settingsRoutes)
+
 
 
 app.get('/', (req, res) => {
