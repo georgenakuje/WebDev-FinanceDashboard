@@ -16,6 +16,8 @@
             <option value="USD">USD</option>
             <option value="CAD">CAD</option>
             <option value="GBP">GBP</option>
+            <option value="AUD">AUD</option>
+            <option value="JPY">JPY</option>
           </select>
         </div>
       </div>
@@ -32,6 +34,8 @@
             <option value="USD">USD</option>
             <option value="CAD">CAD</option>
             <option value="GBP">GBP</option>
+            <option value="AUD">AUD</option>
+            <option value="JPY">JPY</option>
           </select>
         </div>
       </div>
@@ -71,6 +75,8 @@ export default {
         USD: "US",
         CAD: "CA",
         GBP: "GB",
+        AUD: "AU",
+        JPY: "JP",
       };
       const countryCode = currencyToCountry[currency];
       return `https://flagsapi.com/${countryCode}/flat/64.png`;
