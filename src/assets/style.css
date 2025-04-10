@@ -801,6 +801,7 @@ body,
 .dark .register-card button:hover {
   background-color: #2563eb;
 }
+
 /* === Light Theme === */
 body:not(.dark) h1,
 body:not(.dark) h2,
