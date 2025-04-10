@@ -10,7 +10,7 @@ Step 1
 git clone https://github.com/georgenakuje/WebDev-FinanceDashboard.git
 
 Step 2
-- Install npm (part of Node bumdle) in case it's not installed
+- Install npm (part of Node bundle) in case it's not installed
 https://nodejs.org/en
 
 Step 3
