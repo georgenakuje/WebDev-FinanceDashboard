@@ -1,0 +1,17 @@
+1. Frontend & Backend Integration
+- Debugged CORS, fetch errors, and how to use proxy in vite.config.js
+- Assisted in the creation of a batch file for easy start up of web application
+
+
+Prompt 1: "Why is my fetch() call from Vue to Express failing with a network error?"
+Prompt 2: "How can I run both Express and Vite servers at the same time using a batch file or npm script?"
+
+
+
+2. UI Styling & CSS Layout
+- Asked to help in fixing sidebar spacing, and card alignments
+
+Prompt: "How do I add spacing between a sidebar and a main content panel?"
+
+
+AI helped enhance our understanding of full stack development and speed up our learning process. All final code was reviewed, debugged, and integrated by team members.

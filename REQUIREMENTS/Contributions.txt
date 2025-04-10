@@ -1,0 +1,44 @@
+1. Meron Daniel - Project Planner & Developer:
+Helped define initial scope and structure of the app, including features like income title + value, expense + value.
+in login made sure user can input both password and confirm password, calculated income and expense totals, and readme.
+Influenced the base layout and data model that later components were built around.
+Ensure register page included a confirm password input and basic validation.
+Implemented logic to calculate and display the sum of income and expenses.
+Wrote computed properties to track totals dynamically.
+
+Main Contributions: HTML & CSS, Javascript
+
+2. Anibe Nakuje - Full Stack Integrator:
+Helped Setup front end (Client-side framework) using vue components.
+Implemented navigation with sidebar and routing using vue router, including page linking and conditional login/ logout display.
+Setup backend using express.js with routes and middleware like CORS and bodyparser, setup authentication system for full login and register with JWT token creation, secure password hashing using bcrypt and SQLite DB with models 
+
+Main contributions: Node.js/Express.js & Client-Side Framework
+
+3. Jasaptarp Goomer - Data & Visualization Specialist:
+Implemented on all core functionalities within Transactions, analytics and reports pages. Built a fully interactive table for viewing, filtering, editing and deleting income and expense records.
+Implemented search functionality and date filtering
+Designed and implemented a doughnut chart for income vs expenses
+Designed a line/bar chart for monthly trends
+
+Main Contributions: Dynamic DOM, JavaScript & D3
+
+4. Omar Safi - User Experience & Interaction Specialist:
+Built a responsive currency converter component using vue.
+Used fetch() to call a real-time currency exchange API, and displayed the result
+Handled API data formatting, flag icons, and swap functionality
+Implemented theme toggling with light and dark systems modes
+Used localstorage to persist the user's theme choices across sessions and applied theme classes across the app
+
+Main Contributions: SVG, AJAX & Web Services
+
+5. Emma Zhu - Settings & User Account Specialist:
+Handled deeper personalization and account management features
+Designed the overall settings UI layout
+Used clean and responsive structure with input fields, toggles and buttons 
+Built secure forms for changing user information (email and password)
+Included input validation (matching password fields, email format checks)
+
+Implemented dropdowns for selecting base and target currencies
+
+Main Contributions: HTML & CSS, Dynamic DOM
