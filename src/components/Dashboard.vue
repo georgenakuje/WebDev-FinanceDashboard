@@ -48,6 +48,8 @@ export default {
   data() {
     return {
       transactions: [],
+      currency: null,
+      exchangeRate: 1,
     };
   },
   computed: {
@@ -88,17 +90,56 @@ export default {
         console.error("Error loading transactions:", error);
       }
     },
+    async loadSettings() {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        const res = await fetch("http://localhost:3000/api/settings", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (!res.ok) throw new Error("Failed to load settings");
+
+        const data = await res.json();
+        this.currency = data.currency || "USD";
+        this.exchangeRate = await this.fetchExchangeRate("USD", this.currency);
+      } catch (err) {
+        console.error("Error loading user settings:", err);
+        this.currency = "USD";
+        this.exchangeRate = 1;
+      }
+    },
+
+    async fetchExchangeRate(base, target) {
+      try {
+        if (base === target) return 1;
+        const res = await fetch(
+          `https://api.exchangerate-api.com/v4/latest/${base}`
+        );
+        const data = await res.json();
+        return data.rates[target] || 1;
+      } catch (err) {
+        console.error("Exchange rate fetch failed:", err);
+        return 1;
+      }
+    },
+
+    formatCurrency(value) {
+      const converted = value * this.exchangeRate;
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: this.currency || "USD",
+      }).format(converted);
+    },
+
     handleAdd(tx) {
       this.transactions.push(tx);
     },
-    formatCurrency(value) {
-      return new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(value);
-    },
   },
+
   async mounted() {
+    await this.loadSettings();
     await this.loadTransactions();
   },
 };

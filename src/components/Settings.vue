@@ -43,10 +43,10 @@
             @change="updateSettings"
           >
             <option value="USD">US Dollar (USD)</option>
-            <option value="EUR">Euro (EUR)</option>
             <option value="GBP">British Pound (GBP)</option>
             <option value="CAD">Canadian Dollar (CAD)</option>
             <option value="AUD">Australian Dollar (AUD)</option>
+            <option value="JPY">Japanese Yen (JPY)</option>
           </select>
         </div>
       </div>
@@ -243,8 +243,8 @@ export default {
 
         if (!response.ok) throw new Error("Failed to update settings");
 
-        // Apply theme
-        this.applyTheme(this.settings.theme);
+        const data = await response.json();
+        this.settings = data;
       } catch (error) {
         console.error("Error updating settings:", error);
       }
@@ -552,7 +552,7 @@ input:checked + .toggle-slider:before {
 }
 
 .form-group input {
-  width: 100%;
+  width: 95%;
   padding: 8px 12px;
   border: 2px solid #e2e8f0;
   border-radius: 8px;
@@ -698,6 +698,10 @@ input:checked + .toggle-slider:before {
   color: #f0f0f0;
 }
 .dark .subtitle {
+  color: #f0f0f0;
+}
+
+.dark .form-group input {
   color: #f0f0f0;
 }
 </style>
