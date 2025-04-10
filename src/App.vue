@@ -13,36 +13,22 @@ import { ref, provide, onMounted } from "vue";
 
 export default {
   components: { Sidebar },
-
-  computed: {
-    isLoginPage() {
-      return this.$route.path === "/login";
-    },
-  },
   setup() {
-    const isDark = ref(localStorage.getItem("darkMode") === "true");
+    const theme = ref(localStorage.getItem("theme") || "light");
 
-    const toggleDark = () => {
-      isDark.value = !isDark.value;
-      localStorage.setItem("darkMode", isDark.value);
-      document.documentElement.classList.toggle("dark", isDark.value);
+    const setTheme = (mode) => {
+      theme.value = mode;
+      localStorage.setItem("theme", mode);
+      document.documentElement.classList.toggle("dark", mode === "dark");
     };
 
-    provide("isDark", isDark);
-    provide("toggleDark", toggleDark);
+    provide("theme", theme);
+    provide("setTheme", setTheme);
 
     onMounted(() => {
-      const saved = localStorage.getItem("darkMode");
-
-      if (saved === null) {
-        const prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)"
-        ).matches;
-        isDark.value = prefersDark;
-        document.documentElement.classList.toggle("dark", prefersDark);
-      } else {
-        document.documentElement.classList.toggle("dark", isDark.value);
-      }
+      const savedTheme = localStorage.getItem("theme") || "light";
+      theme.value = savedTheme;
+      document.documentElement.classList.toggle("dark", savedTheme === "dark");
     });
 
     return {};

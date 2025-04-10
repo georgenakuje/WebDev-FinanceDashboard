@@ -65,33 +65,25 @@
 </template>
 
 <script>
+import { inject, ref } from "vue";
+
 export default {
   name: "Settings",
-  data() {
+  setup() {
+    const theme = inject("theme");
+    const setTheme = inject("setTheme");
+
+    const defaultCurrency = ref("CAD");
+    const emailNotifications = ref(false);
+    const budgetAlerts = ref(false);
+
     return {
-      theme: localStorage.getItem("theme") || "system",
-      defaultCurrency: "CAD",
-      emailNotifications: false,
-      budgetAlerts: false,
+      theme,
+      setTheme,
+      defaultCurrency,
+      emailNotifications,
+      budgetAlerts,
     };
-  },
-  mounted() {
-    this.applyTheme(this.theme);
-  },
-  methods: {
-    setTheme(mode) {
-      this.theme = mode;
-      localStorage.setItem("theme", mode);
-      this.applyTheme(mode);
-    },
-    applyTheme(mode) {
-      const root = document.documentElement;
-      if (mode === "dark") {
-        root.classList.add("dark");
-      } else {
-        root.classList.remove("dark");
-      }
-    },
   },
 };
 </script>
@@ -103,6 +95,7 @@ export default {
   color: var(--text);
   min-height: 100vh;
 }
+
 .subtitle {
   color: #64748b;
   margin-bottom: 1rem;
@@ -110,6 +103,7 @@ export default {
   color: #64748b;
   font-weight: 400;
 }
+
 .dark .subtitle {
   color: #e0e0e0;
 }
