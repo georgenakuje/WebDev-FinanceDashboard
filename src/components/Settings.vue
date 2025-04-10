@@ -12,29 +12,21 @@
         <div class="setting-group">
           <label>Theme</label>
           <div class="theme-options">
-            <button 
-              class="theme-btn" 
+            <button
+              class="theme-btn"
               :class="{ active: settings.theme === 'light' }"
               @click="setTheme('light')"
             >
               <span class="material-symbols-sharp">light_mode</span>
               Light
             </button>
-            <button 
-              class="theme-btn" 
+            <button
+              class="theme-btn"
               :class="{ active: settings.theme === 'dark' }"
               @click="setTheme('dark')"
             >
               <span class="material-symbols-sharp">dark_mode</span>
               Dark
-            </button>
-            <button 
-              class="theme-btn" 
-              :class="{ active: settings.theme === 'system' }"
-              @click="setTheme('system')"
-            >
-              <span class="material-symbols-sharp">computer</span>
-              System
             </button>
           </div>
         </div>
@@ -45,8 +37,8 @@
         <h2>Currency</h2>
         <div class="setting-group">
           <label>Default Currency</label>
-          <select 
-            v-model="settings.currency" 
+          <select
+            v-model="settings.currency"
             class="select-input"
             @change="updateSettings"
           >
@@ -66,14 +58,16 @@
           <div class="setting-row">
             <div>
               <h3>Email Notifications</h3>
-              <p class="setting-description">Receive updates about your transactions</p>
+              <p class="setting-description">
+                Receive updates about your transactions
+              </p>
             </div>
             <label class="toggle">
-              <input 
-                type="checkbox" 
+              <input
+                type="checkbox"
                 v-model="settings.email_notifications"
                 @change="updateSettings"
-              >
+              />
               <span class="toggle-slider"></span>
             </label>
           </div>
@@ -81,14 +75,16 @@
           <div class="setting-row">
             <div>
               <h3>Budget Alerts</h3>
-              <p class="setting-description">Get notified when you're close to your budget limit</p>
+              <p class="setting-description">
+                Get notified when you're close to your budget limit
+              </p>
             </div>
             <label class="toggle">
-              <input 
-                type="checkbox" 
+              <input
+                type="checkbox"
                 v-model="settings.budget_alerts"
                 @change="updateSettings"
-              >
+              />
               <span class="toggle-slider"></span>
             </label>
           </div>
@@ -104,15 +100,21 @@
               <h3>Email</h3>
               <p class="setting-description">{{ userEmail }}</p>
             </div>
-            <button class="action-btn" @click="showChangeEmail = true">Change</button>
+            <button class="action-btn" @click="showChangeEmail = true">
+              Change
+            </button>
           </div>
 
           <div class="setting-row">
             <div>
               <h3>Password</h3>
-              <p class="setting-description">Last changed {{ lastPasswordChange }}</p>
+              <p class="setting-description">
+                Last changed {{ lastPasswordChange }}
+              </p>
             </div>
-            <button class="action-btn" @click="showChangePassword = true">Change</button>
+            <button class="action-btn" @click="showChangePassword = true">
+              Change
+            </button>
           </div>
         </div>
       </div>
@@ -125,14 +127,20 @@
         <form @submit.prevent="updateEmail">
           <div class="form-group">
             <label>New Email</label>
-            <input type="email" v-model="newEmail" required>
+            <input type="email" v-model="newEmail" required />
           </div>
           <div class="form-group">
             <label>Password</label>
-            <input type="password" v-model="currentPassword" required>
+            <input type="password" v-model="currentPassword" required />
           </div>
           <div class="modal-actions">
-            <button type="button" class="cancel-btn" @click="showChangeEmail = false">Cancel</button>
+            <button
+              type="button"
+              class="cancel-btn"
+              @click="showChangeEmail = false"
+            >
+              Cancel
+            </button>
             <button type="submit" class="save-btn">Update Email</button>
           </div>
         </form>
@@ -146,18 +154,24 @@
         <form @submit.prevent="updatePassword">
           <div class="form-group">
             <label>Current Password</label>
-            <input type="password" v-model="currentPassword" required>
+            <input type="password" v-model="currentPassword" required />
           </div>
           <div class="form-group">
             <label>New Password</label>
-            <input type="password" v-model="newPassword" required>
+            <input type="password" v-model="newPassword" required />
           </div>
           <div class="form-group">
             <label>Confirm New Password</label>
-            <input type="password" v-model="confirmPassword" required>
+            <input type="password" v-model="confirmPassword" required />
           </div>
           <div class="modal-actions">
-            <button type="button" class="cancel-btn" @click="showChangePassword = false">Cancel</button>
+            <button
+              type="button"
+              class="cancel-btn"
+              @click="showChangePassword = false"
+            >
+              Cancel
+            </button>
             <button type="submit" class="save-btn">Update Password</button>
           </div>
         </form>
@@ -168,159 +182,165 @@
 
 <script>
 export default {
-  name: 'Settings',
+  name: "Settings",
   data() {
     return {
       settings: {
-        theme: 'system',
-        currency: 'USD',
+        theme: localStorage.getItem("theme") || "light",
+        currency: "CAD",
         email_notifications: false,
-        budget_alerts: false
+        budget_alerts: false,
       },
       showChangeEmail: false,
       showChangePassword: false,
-      newEmail: '',
-      currentPassword: '',
-      newPassword: '',
-      confirmPassword: '',
-      userEmail: '',
-      lastPasswordChange: 'Never'
-    }
+      newEmail: "",
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+      userEmail: "",
+      lastPasswordChange: "Never",
+    };
   },
   methods: {
     async loadSettings() {
       try {
-        const token = localStorage.getItem('token')
-        if (!token) return
+        const token = localStorage.getItem("token");
+        if (!token) return;
 
-        const response = await fetch('http://localhost:3000/api/settings', {
+        const response = await fetch("http://localhost:3000/api/settings", {
           headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        })
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-        if (!response.ok) throw new Error('Failed to load settings')
+        if (!response.ok) throw new Error("Failed to load settings");
 
-        const data = await response.json()
-        this.settings = data
-        this.userEmail = localStorage.getItem('email')
-        this.lastPasswordChange = data.last_password_change || 'Never'
-        
+        const data = await response.json();
+        this.settings = data;
+        this.userEmail = localStorage.getItem("email");
+        this.lastPasswordChange = data.last_password_change || "Never";
+
         // Apply theme
-        this.applyTheme(data.theme)
+        this.applyTheme(data.theme);
       } catch (error) {
-        console.error('Error loading settings:', error)
+        console.error("Error loading settings:", error);
       }
     },
 
     async updateSettings() {
       try {
-        const token = localStorage.getItem('token')
-        if (!token) return
+        const token = localStorage.getItem("token");
+        if (!token) return;
 
-        const response = await fetch('http://localhost:3000/api/settings', {
-          method: 'PUT',
+        const response = await fetch("http://localhost:3000/api/settings", {
+          method: "PUT",
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(this.settings)
-        })
+          body: JSON.stringify(this.settings),
+        });
 
-        if (!response.ok) throw new Error('Failed to update settings')
+        if (!response.ok) throw new Error("Failed to update settings");
 
         // Apply theme
-        this.applyTheme(this.settings.theme)
+        this.applyTheme(this.settings.theme);
       } catch (error) {
-        console.error('Error updating settings:', error)
+        console.error("Error updating settings:", error);
       }
     },
 
     setTheme(theme) {
-      this.settings.theme = theme
-      this.updateSettings()
+      this.settings.theme = theme;
+      this.applyTheme(theme);
+      this.updateSettings();
     },
 
     applyTheme(theme) {
-      if (theme === 'system') {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-        document.documentElement.classList.toggle('dark', prefersDark)
-      } else {
-        document.documentElement.classList.toggle('dark', theme === 'dark')
+      {
+        document.documentElement.classList.toggle("dark", theme === "dark");
+        localStorage.setItem("theme", theme);
       }
     },
 
     async updateEmail() {
       try {
-        const token = localStorage.getItem('token')
-        if (!token) return
+        const token = localStorage.getItem("token");
+        if (!token) return;
 
-        const response = await fetch('http://localhost:3000/api/settings/email', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify({
-            newEmail: this.newEmail,
-            password: this.currentPassword
-          })
-        })
+        const response = await fetch(
+          "http://localhost:3000/api/settings/email",
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              newEmail: this.newEmail,
+              password: this.currentPassword,
+            }),
+          }
+        );
 
-        if (!response.ok) throw new Error('Failed to update email')
+        if (!response.ok) throw new Error("Failed to update email");
 
-        const data = await response.json()
-        localStorage.setItem('token', data.token)
-        localStorage.setItem('email', this.newEmail)
-        
-        this.userEmail = this.newEmail
-        this.showChangeEmail = false
-        this.newEmail = ''
-        this.currentPassword = ''
+        const data = await response.json();
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("email", this.newEmail);
+
+        this.userEmail = this.newEmail;
+        this.showChangeEmail = false;
+        this.newEmail = "";
+        this.currentPassword = "";
       } catch (error) {
-        console.error('Error updating email:', error)
-        alert(error.message)
+        console.error("Error updating email:", error);
+        alert(error.message);
       }
     },
 
     async updatePassword() {
       try {
         if (this.newPassword !== this.confirmPassword) {
-          throw new Error('Passwords do not match')
+          throw new Error("Passwords do not match");
         }
 
-        const token = localStorage.getItem('token')
-        if (!token) return
+        const token = localStorage.getItem("token");
+        if (!token) return;
 
-        const response = await fetch('http://localhost:3000/api/settings/password', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify({
-            currentPassword: this.currentPassword,
-            newPassword: this.newPassword
-          })
-        })
+        const response = await fetch(
+          "http://localhost:3000/api/settings/password",
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              currentPassword: this.currentPassword,
+              newPassword: this.newPassword,
+            }),
+          }
+        );
 
-        if (!response.ok) throw new Error('Failed to update password')
+        if (!response.ok) throw new Error("Failed to update password");
 
-        this.lastPasswordChange = new Date().toLocaleDateString()
-        this.showChangePassword = false
-        this.currentPassword = ''
-        this.newPassword = ''
-        this.confirmPassword = ''
+        this.lastPasswordChange = new Date().toLocaleDateString();
+        this.showChangePassword = false;
+        this.currentPassword = "";
+        this.newPassword = "";
+        this.confirmPassword = "";
       } catch (error) {
-        console.error('Error updating password:', error)
-        alert(error.message)
+        console.error("Error updating password:", error);
+        alert(error.message);
       }
-    }
+    },
   },
   mounted() {
-    this.loadSettings()
-  }
-}
+    this.applyTheme(this.settings.theme);
+    this.loadSettings();
+  },
+};
 </script>
 
 <style scoped>
@@ -460,7 +480,7 @@ label {
   right: 0;
   bottom: 0;
   background-color: #e2e8f0;
-  transition: .4s;
+  transition: 0.4s;
   border-radius: 24px;
 }
 
@@ -472,7 +492,7 @@ label {
   left: 2px;
   bottom: 2px;
   background-color: white;
-  transition: .4s;
+  transition: 0.4s;
   border-radius: 50%;
 }
 
@@ -586,5 +606,98 @@ input:checked + .toggle-slider:before {
     width: 100%;
     justify-content: center;
   }
+  .dark .settings-container {
+    background-color: #111111;
+    color: #f5f5f5;
+  }
+
+  .dark .settings-card {
+    background: #1e1e1e;
+  }
+
+  .dark .settings-card h2,
+  .dark .setting-row h3,
+  .dark .setting-group label {
+    color: #e0e0e0;
+  }
+
+  .dark .setting-description {
+    color: #cbd5e1;
+  }
+
+  .dark .select-input {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border-color: #444;
+  }
+
+  .dark .theme-btn {
+    background-color: #2a2a2a;
+    border-color: #444;
+    color: #e0e0e0;
+  }
+
+  .dark .theme-btn.active {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+    color: white;
+  }
+
+  .dark .action-btn,
+  .dark .cancel-btn,
+  .dark .modal-content {
+    background-color: #2a2a2a;
+    color: #f0f0f0;
+  }
+}
+</style>
+
+<!-- Dark theme -->
+<style>
+.dark .settings-container {
+  background-color: #111111;
+  color: #f5f5f5;
+}
+
+.dark .settings-card {
+  background: #1e1e1e;
+}
+
+.dark .settings-card h2,
+.dark .setting-row h3,
+.dark .setting-group label {
+  color: #e0e0e0;
+}
+
+.dark .setting-description {
+  color: #cbd5e1;
+}
+
+.dark .select-input {
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+.dark .theme-btn {
+  background-color: #2a2a2a;
+  border-color: #444;
+  color: #e0e0e0;
+}
+
+.dark .theme-btn.active {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+  color: white;
+}
+
+.dark .action-btn,
+.dark .cancel-btn,
+.dark .modal-content {
+  background-color: #2a2a2a;
+  color: #f0f0f0;
+}
+.dark .subtitle {
+  color: #f0f0f0;
 }
 </style>
